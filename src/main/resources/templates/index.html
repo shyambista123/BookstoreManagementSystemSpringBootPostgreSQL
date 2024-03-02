@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" th:replace="base::layout(~{::section})">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Bookstore Management System</title>
+</head>
+<body>
+<section class="container jumbotron mb-2 mb-0 text-center">
+    <h1>Buy Your Favourite Books</h1>
+    <div class="container">
+        <div class="row">
+            <div th:each="book : ${books}" class="col-md-4">
+                <div class="card mb-4">
+                    <img th:if="${book.image}" th:src="@{/images/{fileName}(fileName=${book.image})}" width="325" height="290" alt="Book Cover" class="card-img-top"/>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${book.title}"></h5>
+                        <p class="card-text">
+                            Author: <span th:text="${book.author}"></span><br>
+                            ISBN: <span th:text="${book.ISBN}"></span><br>
+                            Price: $<span th:text="${book.price}"></span><br>
+                            Quantity: <span th:text="${book.quantityInStock}"></span><br>
+                            Genre: <span th:text="${book.genreOfTheBook}"></span><br>
+                            Topic: <span th:text="${book.topicOfTheBook}"></span>
+                        </p>
+                        <form th:action="@{/cart/add/{bookId}(bookId=${book.id})}" method="post">
+                            <div class="form-group">
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" name="quantity" value="1" min="1" id="quantity" class="form-control form-control-sm">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

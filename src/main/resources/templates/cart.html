@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" th:replace="base::layout(~{::section})">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Cart</title>
+</head>
+<body>
+<section class="container jumbotron mt-0 mb-0" style="text-align: center; align-items: center">
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <p th:text="${successMessage}"></p>
+    </div>
+<h1>Your Cart</h1>
+<div class="container">
+    <div class="row">
+        <div th:each="item : ${cartItems}" class="col-md-4">
+            <div class="card mb-4">
+                <img th:if="${item.book.image}" th:src="@{/images/{fileName}(fileName=${item.book.image})}" width="325" height="290" class="card-img-top" alt="Book Cover"/>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${item.book.title}"></h5>
+                    <p class="card-text">
+                        Author: <span th:text="${item.book.author}"></span><br>
+                        ISBN: <span th:text="${item.book.ISBN}"></span><br>
+                        Price: $<span th:text="${item.book.price}"></span><br>
+                        Quantity: <span th:text="${item.quantity}"></span><br>
+                        Genre: <span th:text="${item.book.genreOfTheBook}"></span><br>
+                        Topic: <span th:text="${item.book.topicOfTheBook}"></span>
+                    </p>
+                    <form th:action="@{/order/place-order}" method="post">
+                        <button class="btn btn-primary btn-sm" type="submit">
+                            Place Order <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </form>
+                    <form th:action="@{/cart/remove/{itemId}(itemId=${item.id})}" method="post">
+                        <button class="btn btn-danger mt-1 btn-sm" type="submit">
+                            Remove from Cart <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)" >
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<!--font awesome link-->
+  <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <title>Bookstore Management System</title>
+</head>
+<body style="font-family: candara">
+
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+  <a class="navbar-brand text-white" th:href="@{/}" >Application</a>
+  <a th:if="${#authorization.expression('isAuthenticated()')}" class="navbar-brand text-white" th:href="@{/books}">Books operation</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+    </ul>
+<!--    search -->
+    <form class="form-inline my-2 my-lg-0 mr-1">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0 text-white" type="submit">Search</button>
+    </form>
+
+    <div th:unless="${#authorization.expression('isAuthenticated()')}">
+    <a style="margin-right: 7px;" class="btn btn-outline-primary text-white my-2 my-sm-0" th:href="@{/register}" >Register</a>
+    <a style="margin-right: 7px;" class="btn btn-outline-primary text-white my-2 my-sm-0" th:href="@{/login}">Login</a>
+    </div>
+    <div th:if="${#authorization.expression('isAuthenticated()')}">
+      <a style="margin-right: 7px;" class="btn btn-outline-primary text-white my-2 my-sm-0" th:href="@{/logout}">Logout</a>
+    </div>
+    <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/order}" class="btn btn-outline-primary mr-1 text-white">My Orders</a>
+    <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/cart}">
+      <span data-bs-toggle="tooltip" data-bs-placement="top" title="Cart">
+        <i class="fa fa-cart-arrow-down text-white" style="font-size: 1.5rem;" aria-hidden="true"></i>
+      </span>
+    </a>
+
+  </div>
+</nav>
+<div th:replace="${content}"></div>
+</body>
+</html>

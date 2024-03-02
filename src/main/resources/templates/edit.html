@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" th:replace="base::layout(~{::section})">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <title>Edit Book</title>
+</head>
+<body>
+<section>
+  <div class="container">
+    <h1>Edit Book</h1>
+    <form th:object="${book}" th:action="@{/books/edit/{id}(id=${book.id})}" method="post" enctype="multipart/form-data">
+      <input type="hidden" th:field="*{id}">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" th:field="*{title}" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="author">Author:</label>
+        <input type="text" id="author" th:field="*{author}" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="ISBN">ISBN:</label>
+        <input type="number" id="ISBN" th:field="*{ISBN}" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" th:field="*{price}" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="quantityInStock">Quantity in Stock:</label>
+        <input type="number" id="quantityInStock" th:field="*{quantityInStock}" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="newImageFile" accept="image/*" class="form-control-file">
+      </div>
+      <div class="form-group">
+        <label for="genreOfTheBook">Genre:</label>
+        <input type="text" id="genreOfTheBook" th:field="*{genreOfTheBook}" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="topicOfTheBook">Topic:</label>
+        <input type="text" id="topicOfTheBook" th:field="*{topicOfTheBook}" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+    <a th:href="@{/books}" class="btn btn-secondary mt-2"><i class="fas fa-arrow-left"></i> Back to List</a>
+  </div>
+</section>
+</body>
+</html>
